@@ -1,85 +1,139 @@
-/* ===== EFECTO NEÓN GENERAL ===== */
-h1, h2{
-    text-shadow:0 0 10px rgba(0,198,255,0.8),
-                0 0 20px rgba(0,198,255,0.5);
-}
+import java.sql.*;
+import java.util.Scanner;
 
-/* ===== EFECTO FONDO ANIMADO ===== */
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:radial-gradient(circle, rgba(0,198,255,0.08), transparent 60%);
-    animation:moveBg 6s infinite alternate;
-    z-index:-2;
-}
+public class PigeonGame {
 
-@keyframes moveBg{
-    from{transform:scale(1);}
-    to{transform:scale(1.2);}
-}
+    static Connection conn;
 
-/* ===== BOTONES MÁS PRO ===== */
-.btn{
-    position:relative;
-    overflow:hidden;
-    transition:0.3s;
-}
+    public static void main(String[] args) {
 
-.btn::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-100%;
-    width:100%;
-    height:100%;
-    background:rgba(255,255,255,0.2);
-    transition:0.4s;
-}
+        try {
+            connectDB();
+            createTables();
 
-.btn:hover::before{
-    left:100%;
-}
+            Scanner sc = new Scanner(System.in);
 
-/* ===== GALERÍA MÁS GAMER ===== */
-.gallery img{
-    filter:brightness(0.9);
-    transition:0.4s;
-}
+            while (true) {
 
-.gallery img:hover{
-    filter:brightness(1.2) saturate(1.2);
-    transform:scale(1.08);
-    box-shadow:0 0 20px rgba(0,198,255,0.6);
-}
+                System.out.println("\n🎮 PIGEON SHOT VR BACKEND");
+                System.out.println("1. Registrar");
+                System.out.println("2. Login");
+                System.out.println("3. Agregar puntos");
+                System.out.println("4. Ver ranking");
+                System.out.println("5. Salir");
+                System.out.print("Opción: ");
 
-/* ===== PORTADA MÁS IMPACTO ===== */
-.hero img{
-    box-shadow:0 0 30px rgba(0,198,255,0.4);
-    transition:0.4s;
-}
+                int op = sc.nextInt();
+                sc.nextLine();
 
-.hero img:hover{
-    transform:scale(1.02);
-    box-shadow:0 0 50px rgba(0,198,255,0.7);
-}
+                switch (op) {
 
-/* ===== FORMULARIO MÁS MODERNO ===== */
-.form-box{
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,0.1);
-}
+                    case 1 -> {
+                        System.out.print("Usuario: ");
+                        String user = sc.nextLine();
 
-.form-box input{
-    outline:none;
-    transition:0.3s;
-}
+                        System.out.print("Password: ");
+                        String pass = sc.nextLine();
 
-.form-box input:focus{
-    box-shadow:0 0 10px #00c6ff;
-}
+                        PreparedStatement ps = conn.prepareStatement(
+                            "INSERT INTO users(username,password) VALUES(?,?)"
+                        );
+                        ps.setString(1, user);
+                        ps.setString(2, pass);
+                        ps.executeUpdate();
 
-/* ===== FOOTER PRO ===== */
-footer{
-    border-top:1px solid rgba(255,255,255,0.1);
+                        System.out.println("✔ Usuario registrado");
+                    }
+
+                    case 2 -> {
+                        System.out.print("Usuario: ");
+                        String user = sc.nextLine();
+
+                        System.out.print("Password: ");
+                        String pass = sc.nextLine();
+
+                        PreparedStatement ps = conn.prepareStatement(
+                            "SELECT * FROM users WHERE username=? AND password=?"
+                        );
+                        ps.setString(1, user);
+                        ps.setString(2, pass);
+
+                        ResultSet rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            System.out.println("✔ LOGIN EXITOSO 🎮");
+                        } else {
+                            System.out.println("❌ ERROR LOGIN");
+                        }
+                    }
+
+                    case 3 -> {
+                        System.out.print("Usuario: ");
+                        String user = sc.nextLine();
+
+                        System.out.print("Puntos: ");
+                        int points = sc.nextInt();
+                        sc.nextLine();
+
+                        PreparedStatement ps = conn.prepareStatement(
+                            "INSERT INTO scores(username,points) VALUES(?,?)"
+                        );
+                        ps.setString(1, user);
+                        ps.setInt(2, points);
+                        ps.executeUpdate();
+
+                        System.out.println("✔ Puntos guardados");
+                    }
+
+                    case 4 -> {
+                        System.out.println("🏆 RANKING:");
+
+                        Statement st = conn.createStatement();
+                        ResultSet rs = st.executeQuery(
+                            "SELECT username, SUM(points) as total " +
+                            "FROM scores GROUP BY username ORDER BY total DESC"
+                        );
+
+                        while (rs.next()) {
+                            System.out.println(rs.getString("username") +
+                                    " - " + rs.getInt("total"));
+                        }
+                    }
+
+                    case 5 -> {
+                        System.out.println("Saliendo...");
+                        return;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // CONEXIÓN MYSQL
+    static void connectDB() throws Exception {
+        conn = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/pigeon_game",
+            "root",
+            "tu_password"
+        );
+    }
+
+    // CREAR TABLAS
+    static void createTables() throws Exception {
+
+        Statement st = conn.createStatement();
+
+        st.execute("CREATE TABLE IF NOT EXISTS users (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "username VARCHAR(50)," +
+                "password VARCHAR(50))");
+
+        st.execute("CREATE TABLE IF NOT EXISTS scores (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "username VARCHAR(50)," +
+                "points INT)");
+    }
 }
