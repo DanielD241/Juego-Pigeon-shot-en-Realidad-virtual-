@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pigeon Shot VR | Shooter VR Arcade</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Orbitron', sans-serif;
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Fondo animado */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at top, rgba(0,198,255,0.15), transparent 40%),
+    radial-gradient(circle at bottom, rgba(255,0,150,0.12), transparent 40%);
+    z-index:-1;
+}
+
+/* Header */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,0.5);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+    font-size:1.5rem;
+    color:#00c6ff;
+    text-shadow:0 0 10px #00c6ff;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00c6ff;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+}
+
+.hero h1{
+    font-size:5rem;
+    color:#00c6ff;
+    text-shadow:0 0 20px #00c6ff;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:700px;
+    color:#cccccc;
+    font-size:1.2rem;
+    margin-bottom:40px;
+    line-height:1.8;
+}
+
+.hero-image{
+    width:100%;
+    max-width:900px;
+    border-radius:20px;
+    margin-bottom:40px;
+    box-shadow:0 0 30px rgba(0,198,255,0.3);
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 35px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+    font-size:1rem;
+    text-decoration:none;
+}
+
+.primary{
+    background:#00c6ff;
+    color:black;
+    box-shadow:0 0 20px #00c6ff;
+}
+
+.primary:hover{
+    transform:scale(1.05);
+}
+
+.secondary{
+    background:transparent;
+    border:2px solid #00c6ff;
+    color:white;
+}
+
+.secondary:hover{
+    background:#00c6ff;
+    color:black;
+}
+
+/* Sections */
+.section{
+    padding:100px 8%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.8rem;
+    margin-bottom:60px;
+    color:#00c6ff;
+}
+
+/* Cards */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:30px;
+    transition:0.3s;
+    backdrop-filter:blur(8px);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(0,198,255,0.4);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#00c6ff;
+}
+
+.card p{
+    color:#cccccc;
+    line-height:1.6;
+}
+
+/* Gameplay */
+.gameplay-box{
+    text-align:center;
+    font-size:1.5rem;
+    background:#111;
+    padding:40px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Stats */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    margin-top:50px;
+}
+
+.stat{
+    text-align:center;
+    padding:30px;
+    background:#111;
+    border-radius:20px;
+}
+
+.stat h2{
+    color:#00c6ff;
+    font-size:2.5rem;
+}
+
+/* Galería */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,198,255,0.2);
+}
+
+/* Comentarios */
+textarea{
+    width:100%;
+    max-width:800px;
+    display:block;
+    margin:0 auto 20px;
+    padding:15px;
+    border-radius:10px;
+    border:none;
+    font-family:Arial, sans-serif;
+    resize:vertical;
+}
+
+/* Footer */
+footer{
+    padding:40px;
+    text-align:center;
+    color:#777;
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .hero h1{
+        font-size:3rem;
+    }
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Pigeon Shot VR</div>
+    <nav>
+        <a href="#mecanicas">Mecánicas</a>
+        <a href="#galeria">Galería</a>
+        <a href="#comentarios">Comentarios</a>
+        <a href="#descarga">Descargar</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>PIGEON SHOT VR</h1>
+
+    <p>
+        Protege tus cultivos de trigo de las palomas invasoras
+        en una experiencia arcade de realidad virtual.
+    </p>
+
+    <img src="imagenes/portada-pigeon-shot.png"
+         alt="Portada del juego"
+         class="hero-image">
+
+    <div class="buttons">
+        <a href="#descarga" class="btn primary">DESCARGAR APK</a>
+        <a href="#galeria" class="btn secondary">VER IMÁGENES</a>
+    </div>
+</section>
+
+<section class="section" id="mecanicas">
+    <h2 class="section-title">MECÁNICAS VR</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>🎯 Apunta</h3>
+            <p>Usa el movimiento de la cabeza o controles VR.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔫 Dispara</h3>
+            <p>Elimina las palomas antes de que dañen el cultivo.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌾 Protege el trigo</h3>
+            <p>Defiende tus cosechas y consigue la mejor puntuación.</p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Supervivencia</h3>
+            <p>Resiste oleadas cada vez más difíciles.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="galeria">
+    <h2 class="section-title">GALERÍA</h2>
+
+    <div class="gallery">
+        <img src="imagenes/cazador-trigo-1.png" alt="Cazador vigilando el cultivo">
+        <img src="imagenes/cazador-trigo-2.png" alt="Cazador disparando a las palomas">
+    </div>
+</section>
+
+<section class="section" id="descarga">
+    <h2 class="section-title">DESCARGA</h2>
+
+    <div class="gameplay-box">
+        <p>Descarga la última versión del juego para Android.</p>
+        <br>
+        <a href="PigeonShot.apk" download class="btn primary">
+            Descargar APK
+        </a>
+    </div>
+</section>
+
+<section class="section" id="comentarios">
+    <h2 class="section-title">COMENTARIOS</h2>
+
+    <textarea rows="6"
+        placeholder="Escribe aquí tus sugerencias sobre el juego..."></textarea>
+
+    <div style="text-align:center;">
+        <button class="btn primary">Enviar sugerencia</button>
+    </div>
+</section>
+
+<footer>
+    © 2026 Pigeon Shot VR — Todos los derechos reservados
+</footer>
+
+</body>
+</html>
