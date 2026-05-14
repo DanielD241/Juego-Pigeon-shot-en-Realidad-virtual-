@@ -1,140 +1,85 @@
-/* RESET GENERAL */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* ===== EFECTO NEÓN GENERAL ===== */
+h1, h2{
+    text-shadow:0 0 10px rgba(0,198,255,0.8),
+                0 0 20px rgba(0,198,255,0.5);
 }
 
-/* FUENTE Y FONDO */
-body{
-    font-family:'Orbitron', sans-serif;
-    background:#050505;
-    color:white;
-    overflow-x:hidden;
-}
-
-/* EFECTO DE FONDO SUAVE */
-body::before{
+/* ===== EFECTO FONDO ANIMADO ===== */
+body::after{
     content:"";
     position:fixed;
     inset:0;
-    background:
-        radial-gradient(circle at top, rgba(0,198,255,0.15), transparent 45%),
-        radial-gradient(circle at bottom, rgba(255,0,150,0.10), transparent 45%);
-    z-index:-1;
+    background:radial-gradient(circle, rgba(0,198,255,0.08), transparent 60%);
+    animation:moveBg 6s infinite alternate;
+    z-index:-2;
 }
 
-/* HEADER */
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
-    position:sticky;
+@keyframes moveBg{
+    from{transform:scale(1);}
+    to{transform:scale(1.2);}
+}
+
+/* ===== BOTONES MÁS PRO ===== */
+.btn{
+    position:relative;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
     top:0;
-    z-index:1000;
-}
-
-.logo{
-    color:#00c6ff;
-    font-size:1.5rem;
-    font-weight:bold;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
-    transition:0.3s;
-}
-
-nav a:hover{
-    color:#00c6ff;
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:70px 20px;
-}
-
-.hero h1{
-    font-size:3rem;
-    color:#00c6ff;
-    margin-bottom:15px;
-}
-
-.hero p{
-    color:#ccc;
-    max-width:700px;
-    margin:0 auto 25px auto;
-    line-height:1.6;
-}
-
-/* PORTADA */
-.hero-image{
+    left:-100%;
     width:100%;
-    max-width:850px;
-    border-radius:20px;
-    margin-top:25px;
-    box-shadow:0 0 25px rgba(0,198,255,0.25);
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
+    height:100%;
+    background:rgba(255,255,255,0.2);
+    transition:0.4s;
 }
 
-/* GALERÍA */
-.section{
-    padding:80px 20px;
+.btn:hover::before{
+    left:100%;
 }
 
-.section-title{
-    text-align:center;
-    font-size:2rem;
-    color:#00c6ff;
-    margin-bottom:40px;
-}
-
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-    gap:25px; /* 🔥 evita imágenes pegadas */
-    padding:0 20px;
-}
-
+/* ===== GALERÍA MÁS GAMER ===== */
 .gallery img{
-    width:100%;
-    border-radius:15px;
-    transition:0.3s;
-    box-shadow:0 0 15px rgba(0,0,0,0.4);
+    filter:brightness(0.9);
+    transition:0.4s;
 }
 
 .gallery img:hover{
-    transform:scale(1.05);
+    filter:brightness(1.2) saturate(1.2);
+    transform:scale(1.08);
+    box-shadow:0 0 20px rgba(0,198,255,0.6);
 }
 
-/* BOTÓN */
-.btn{
-    display:inline-block;
-    padding:14px 30px;
-    background:#00c6ff;
-    color:black;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
+/* ===== PORTADA MÁS IMPACTO ===== */
+.hero img{
+    box-shadow:0 0 30px rgba(0,198,255,0.4);
+    transition:0.4s;
+}
+
+.hero img:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 50px rgba(0,198,255,0.7);
+}
+
+/* ===== FORMULARIO MÁS MODERNO ===== */
+.form-box{
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.form-box input{
+    outline:none;
     transition:0.3s;
 }
 
-.btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 15px #00c6ff;
+.form-box input:focus{
+    box-shadow:0 0 10px #00c6ff;
 }
 
-/* FOOTER */
+/* ===== FOOTER PRO ===== */
 footer{
-    text-align:center;
-    padding:40px;
-    color:#777;
+    border-top:1px solid rgba(255,255,255,0.1);
 }
