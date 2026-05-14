@@ -1,0 +1,140 @@
+/* RESET GENERAL */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* FUENTE Y FONDO */
+body{
+    font-family:'Orbitron', sans-serif;
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* EFECTO DE FONDO SUAVE */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top, rgba(0,198,255,0.15), transparent 45%),
+        radial-gradient(circle at bottom, rgba(255,0,150,0.10), transparent 45%);
+    z-index:-1;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:#00c6ff;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#00c6ff;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    color:#00c6ff;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:#ccc;
+    max-width:700px;
+    margin:0 auto 25px auto;
+    line-height:1.6;
+}
+
+/* PORTADA */
+.hero-image{
+    width:100%;
+    max-width:850px;
+    border-radius:20px;
+    margin-top:25px;
+    box-shadow:0 0 25px rgba(0,198,255,0.25);
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* GALERÍA */
+.section{
+    padding:80px 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2rem;
+    color:#00c6ff;
+    margin-bottom:40px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:25px; /* 🔥 evita imágenes pegadas */
+    padding:0 20px;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(0,0,0,0.4);
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* BOTÓN */
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#00c6ff;
+    color:black;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #00c6ff;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:40px;
+    color:#777;
+}
