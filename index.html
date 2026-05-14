@@ -22,21 +22,22 @@ body{
     justify-content:center;
     align-items:center;
 
-    /* CAMBIO IMPORTANTE: nombre exacto de tu imagen */
-    background:url('imagenes/Portada-Pigeon-shit.jpeg') center/cover no-repeat;
+    /* IMAGEN DE FONDO (tu portada real) */
+    background: url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
 }
 
 body::before{
     content:"";
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.65);
 }
 
 .login-box{
     position:relative;
     z-index:1;
     width:420px;
+    max-width:90%;
     padding:40px;
     border-radius:25px;
     background:rgba(255,255,255,0.12);
@@ -65,7 +66,6 @@ body::before{
     border-radius:10px;
     background:rgba(255,255,255,0.15);
     color:white;
-    font-size:1rem;
 }
 
 .login-box input::placeholder{
@@ -87,7 +87,6 @@ body::before{
 .btn-register{
     background:#00c6ff;
     color:black;
-    box-shadow:0 0 15px #00c6ff;
 }
 
 .btn-login{
@@ -101,14 +100,15 @@ body::before{
 }
 </style>
 </head>
+
 <body>
 
 <div class="login-box">
     <h1>PIGEON SHOT VR</h1>
-    <p>Regístrate o inicia sesión para descargar el juego</p>
+    <p>Regístrate o inicia sesión</p>
 
-    <input type="text" placeholder="Nombre de usuario">
-    <input type="email" placeholder="Correo electrónico">
+    <input type="text" placeholder="Usuario">
+    <input type="email" placeholder="Correo">
     <input type="password" placeholder="Contraseña">
 
     <button class="btn-register" onclick="entrar()">Registrarse</button>
