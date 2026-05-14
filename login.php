@@ -1,20 +1,17 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "pigeon_shot");
-
-if ($conn->connect_error) {
-    die("Error de conexión");
-}
 
 $correo = $_POST['correo'];
 $contraseña = $_POST['contraseña'];
 
-$sql = "SELECT * FROM usuarios WHERE correo='$correo' AND contraseña='$contraseña'";
-$result = $conn->query($sql);
+// usuario fijo (hardcodeado)
+$correo_valido = "test@gmail.com";
+$contraseña_valida = "1234";
 
-if ($result->num_rows > 0) {
+if ($correo == $correo_valido && $contraseña == $contraseña_valida) {
     header("Location: home.html");
     exit();
 } else {
     echo "Correo o contraseña incorrectos";
 }
+
 ?>
