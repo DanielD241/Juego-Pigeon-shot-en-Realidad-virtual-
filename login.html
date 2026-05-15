@@ -104,50 +104,29 @@ body::before{
     <h1>PIGEON SHOT VR</h1>
     <p>Regístrate o inicia sesión</p>
 
-    <form id="formLogin">
+    <!-- 🔥 FORMULARIO REAL CON PHP -->
+    <form>
 
-        <input type="text" id="usuario" placeholder="Usuario" required>
-        <input type="email" id="correo" placeholder="Correo" required>
-        <input type="password" id="password" placeholder="Contraseña" required>
+        <input type="text" name="usuario" placeholder="Usuario" required>
+        <input type="email" name="correo" placeholder="Correo" required>
+        <input type="password" name="contraseña" placeholder="Contraseña" required>
 
-        <button type="button" class="btn-register" onclick="registrar()">Registrarse</button>
-        <button type="button" class="btn-login" onclick="login()">Iniciar Sesión</button>
+        <!-- REGISTRO -->
+        <button type="submit"
+            class="btn-register"
+            onclick="this.form.action='registrar.php'">
+            Registrarse
+        </button>
+
+        <!-- LOGIN -->
+        <button type="submit"
+            class="btn-login"
+            onclick="this.form.action='login.php'">
+            Iniciar Sesión
+        </button>
 
     </form>
 </div>
-
-<script>
-// VALIDACIÓN SIMPLE (evita campos vacíos)
-function validar() {
-    let u = document.getElementById("usuario").value;
-    let c = document.getElementById("correo").value;
-    let p = document.getElementById("password").value;
-
-    if (u === "" || c === "" || p === "") {
-        alert("❌ Debes llenar todos los campos");
-        return false;
-    }
-    return true;
-}
-
-// REGISTRO
-function registrar() {
-    if (validar()) {
-        // aquí luego conectas con PHP (registrar.php)
-        alert("✔ Usuario registrado (demo)");
-        window.location.href = "index.html";
-    }
-}
-
-// LOGIN
-function login() {
-    if (validar()) {
-        // aquí luego conectas con PHP (login.php)
-        alert("✔ Bienvenido");
-        window.location.href = "index.html";
-    }
-}
-</script>
 
 </body>
 </html>
