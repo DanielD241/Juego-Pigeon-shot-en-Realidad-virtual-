@@ -65,10 +65,6 @@ body::before{
     color:white;
 }
 
-.login-box input::placeholder{
-    color:#ddd;
-}
-
 .login-box button{
     width:100%;
     padding:14px;
@@ -104,24 +100,20 @@ body::before{
     <h1>PIGEON SHOT VR</h1>
     <p>Regístrate o inicia sesión</p>
 
-    <!-- 🔥 FORMULARIO REAL CON PHP -->
-    <form>
+    <!-- FORMULARIO CORREGIDO -->
+    <form method="POST">
 
         <input type="text" name="usuario" placeholder="Usuario" required>
         <input type="email" name="correo" placeholder="Correo" required>
         <input type="password" name="contraseña" placeholder="Contraseña" required>
 
         <!-- REGISTRO -->
-        <button type="submit"
-            class="btn-register"
-            onclick="this.form.action='registrar.php'">
+        <button type="submit" formaction="registrar.php" class="btn-register">
             Registrarse
         </button>
 
         <!-- LOGIN -->
-        <button type="submit"
-            class="btn-login"
-            onclick="this.form.action='login.php'">
+        <button type="submit" formaction="login.php" class="btn-login">
             Iniciar Sesión
         </button>
 
