@@ -1,123 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pigeon Shot VR - Login</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<title>Pigeon Shot</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    font-family:'Orbitron', sans-serif;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    /* IMAGEN DE FONDO (tu portada real) */
-    background: url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
-}
-
-body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,0.65);
-}
-
-.login-box{
-    position:relative;
-    z-index:1;
-    width:420px;
-    max-width:90%;
-    padding:40px;
-    border-radius:25px;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(15px);
-    box-shadow:0 8px 40px rgba(0,0,0,0.4);
+    margin:0;
+    font-family:Arial;
+    background:#0b0f1a;
     color:white;
     text-align:center;
 }
 
-.login-box h1{
+header{
+    padding:30px;
+    background:#111a2e;
+    box-shadow:0 0 10px black;
+}
+
+nav{
+    margin-top:20px;
+}
+
+nav a{
     color:#00c6ff;
-    margin-bottom:10px;
-    text-shadow:0 0 15px #00c6ff;
+    text-decoration:none;
+    margin:0 15px;
+    font-size:18px;
 }
 
-.login-box p{
-    color:#ddd;
-    margin-bottom:25px;
+nav a:hover{
+    text-shadow:0 0 10px #00c6ff;
 }
 
-.login-box input{
-    width:100%;
-    padding:14px;
-    margin:10px 0;
+.container{
+    margin-top:80px;
+}
+
+button{
+    padding:15px 25px;
+    font-size:18px;
     border:none;
     border-radius:10px;
-    background:rgba(255,255,255,0.15);
-    color:white;
-}
-
-.login-box input::placeholder{
-    color:#ddd;
-}
-
-.login-box button{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border:none;
-    border-radius:10px;
-    font-size:1rem;
-    font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
+    margin:10px;
 }
 
-.btn-register{
+.play{
     background:#00c6ff;
-    color:black;
 }
 
-.btn-login{
+.login{
     background:transparent;
     border:2px solid #00c6ff;
     color:white;
 }
-
-.login-box button:hover{
-    transform:scale(1.03);
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="login-box">
-    <h1>PIGEON SHOT VR</h1>
-    <p>Regístrate o inicia sesión</p>
+<header>
+    <h1>🎮 Pigeon Shot</h1>
+    <p>Bienvenido al juego</p>
 
-    <input type="text" placeholder="Usuario">
-    <input type="email" placeholder="Correo">
-    <input type="password" placeholder="Contraseña">
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="login.html">Login</a>
+        <a href="registro.html">Registro</a>
+    </nav>
+</header>
 
-    <button class="btn-register" onclick="entrar()">Registrarse</button>
-    <button class="btn-login" onclick="entrar()">Iniciar Sesión</button>
+<div class="container">
+
+    <h2>Empieza a jugar</h2>
+
+    <button class="play" onclick="jugar()">Jugar</button>
+
+    <button class="login" onclick="location.href='login.html'">
+        Iniciar sesión
+    </button>
+
 </div>
 
 <script>
-function entrar() {
-    window.location.href = "Home.html";
+function jugar(){
+    alert("Aquí luego conectas el juego Unity 🎮");
 }
 </script>
 
