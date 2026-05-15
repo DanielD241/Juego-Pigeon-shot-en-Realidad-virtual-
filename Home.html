@@ -24,15 +24,23 @@ body{
 header{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     padding:20px 8%;
     background:rgba(0,0,0,0.7);
     position:sticky;
     top:0;
+    z-index:1000;
 }
 
 .logo{
     color:#00c6ff;
     font-size:1.5rem;
+    font-weight:bold;
+}
+
+.header-buttons{
+    display:flex;
+    gap:15px;
 }
 
 /* HERO */
@@ -50,6 +58,7 @@ header{
     max-width:700px;
     margin:20px auto;
     color:#ccc;
+    line-height:1.8;
 }
 
 .hero img{
@@ -57,9 +66,10 @@ header{
     max-width:900px;
     border-radius:20px;
     margin-top:20px;
+    box-shadow:0 0 25px rgba(0,198,255,0.2);
 }
 
-/* BOTÓN DESCARGA */
+/* BOTONES */
 .btn{
     display:inline-block;
     margin-top:20px;
@@ -69,9 +79,22 @@ header{
     border-radius:10px;
     text-decoration:none;
     font-weight:bold;
+    transition:0.3s;
 }
 
-/* GALERÍA */
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(0,198,255,0.5);
+}
+
+.btn-logout{
+    background:transparent;
+    border:2px solid #00c6ff;
+    color:white;
+    margin-top:0;
+}
+
+/* SECCIONES */
 .section{
     padding:70px 20px;
 }
@@ -82,6 +105,15 @@ header{
     margin-bottom:30px;
 }
 
+.section p{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    color:#ccc;
+    line-height:1.8;
+}
+
+/* GALERÍA */
 .gallery{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
@@ -92,6 +124,7 @@ header{
 .gallery img{
     width:100%;
     border-radius:15px;
+    box-shadow:0 0 15px rgba(255,255,255,0.1);
 }
 
 /* FORMULARIO */
@@ -131,6 +164,7 @@ footer{
     text-align:center;
     padding:40px;
     color:#777;
+    border-top:1px solid rgba(255,255,255,0.1);
 }
 </style>
 </head>
@@ -139,6 +173,11 @@ footer{
 
 <header>
     <div class="logo">Pigeon Shot VR</div>
+
+    <div class="header-buttons">
+        <a href="PigeonShot.apk" download class="btn">Descargar APK</a>
+        <a href="logout.php" class="btn btn-logout">Cerrar sesión</a>
+    </div>
 </header>
 
 <!-- PORTADA -->
@@ -164,12 +203,12 @@ footer{
     <h2>GALERÍA DEL JUEGO</h2>
 
     <div class="gallery">
-        <img src="imagenes/cazador-trigo 1.jpeg">
-        <img src="imagenes/cazador-trigo 2.jpeg">
+        <img src="imagenes/cazador-trigo 1.jpeg" alt="Imagen 1 del juego">
+        <img src="imagenes/cazador-trigo 2.jpeg" alt="Imagen 2 del juego">
     </div>
 </section>
 
-<!-- FORMULARIO -->
+<!-- FORMULARIO (SE CONSERVA TAL COMO PEDISTE) -->
 <section class="form-section">
     <h2 style="color:#00c6ff;">Regístrate para jugar</h2>
 
@@ -182,6 +221,29 @@ footer{
             Crear cuenta
         </button>
     </div>
+</section>
+
+<!-- ACERCA DEL PROYECTO -->
+<section class="section">
+    <h2>ACERCA DEL PROYECTO</h2>
+    <p>
+        Pigeon Shot VR es un videojuego desarrollado en Unity con realidad virtual.
+        El objetivo del jugador es proteger los cultivos de trigo eliminando las
+        palomas invasoras. Este proyecto académico integra programación, diseño 3D,
+        desarrollo web y bases de datos.
+    </p>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section class="section">
+    <h2>CARACTERÍSTICAS</h2>
+    <p>
+        ✔ Realidad Virtual (VR)<br>
+        ✔ Desarrollado en Unity<br>
+        ✔ Sistema de login y registro<br>
+        ✔ Descarga directa del APK<br>
+        ✔ Página web oficial del proyecto
+    </p>
 </section>
 
 <footer>
