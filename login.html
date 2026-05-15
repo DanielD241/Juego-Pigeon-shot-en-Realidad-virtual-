@@ -63,6 +63,11 @@ body::before{
     border-radius:10px;
     background:rgba(255,255,255,0.15);
     color:white;
+    font-family:'Orbitron', sans-serif;
+}
+
+.login-box input::placeholder{
+    color:#ddd;
 }
 
 .login-box button{
@@ -75,6 +80,7 @@ body::before{
     font-weight:bold;
     cursor:pointer;
     transition:0.3s;
+    font-family:'Orbitron', sans-serif;
 }
 
 .btn-register{
@@ -100,23 +106,48 @@ body::before{
     <h1>PIGEON SHOT VR</h1>
     <p>Regístrate o inicia sesión</p>
 
-    <!-- FORMULARIO CORREGIDO -->
     <form method="POST" autocomplete="off">
 
-        <input type="text" name="usuario" placeholder="Usuario" required>
+        <!-- Usuario -->
+        <input
+            type="text"
+            name="usuario"
+            placeholder="Usuario"
+            required
+        >
 
-        <input type="email" name="correo" placeholder="Correo" required>
+        <!-- Correo -->
+        <input
+            type="email"
+            name="correo"
+            placeholder="Correo"
+            required
+        >
 
-        <!-- 🔥 CAMBIO IMPORTANTE -->
-        <input type="password" name="password" placeholder="Contraseña" required autocomplete="off">
+        <!-- Contraseña -->
+        <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+            autocomplete="off"
+        >
 
-        <!-- REGISTRO -->
-        <button type="submit" formaction="registrar.php" class="btn-register">
+        <!-- Botón Registrarse -->
+        <button
+            type="submit"
+            formaction="registrar.php"
+            class="btn-register"
+        >
             Registrarse
         </button>
 
-        <!-- LOGIN -->
-        <button type="submit" formaction="login.php" class="btn-login">
+        <!-- Botón Iniciar Sesión -->
+        <button
+            type="submit"
+            formaction="login.php"
+            class="btn-login"
+        >
             Iniciar Sesión
         </button>
 
