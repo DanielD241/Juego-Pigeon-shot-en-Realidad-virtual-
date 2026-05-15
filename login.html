@@ -1,17 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pigeon Shot VR - Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Orbitron', sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+}
+
+.login-box{
+    position:relative;
+    z-index:1;
+    width:420px;
+    max-width:90%;
+    padding:40px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    box-shadow:0 8px 40px rgba(0,0,0,0.4);
+    color:white;
+    text-align:center;
+}
+
+.login-box h1{
+    color:#00c6ff;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#ddd;
+    margin-bottom:25px;
+}
+
+.login-box input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.15);
+    color:white;
+}
+
+.login-box input::placeholder{
+    color:#ddd;
+}
+
+.login-box button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    font-size:1rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn-register{
+    background:#00c6ff;
+    color:black;
+}
+
+.btn-login{
+    background:transparent;
+    border:2px solid #00c6ff;
+    color:white;
+}
+
+.login-box button:hover{
+    transform:scale(1.03);
+}
+</style>
 </head>
+
 <body>
 
-<h2>Iniciar sesión</h2>
+<div class="login-box">
+    <h1>PIGEON SHOT VR</h1>
+    <p>Regístrate o inicia sesión</p>
 
-<form action="login.php" method="POST">
-    <input type="email" name="correo" placeholder="Correo" required><br><br>
-    <input type="password" name="contraseña" placeholder="Contraseña" required><br><br>
-    <button type="submit">Entrar</button>
-</form>
+    <form id="formLogin">
+
+        <input type="text" id="usuario" placeholder="Usuario" required>
+        <input type="email" id="correo" placeholder="Correo" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+
+        <button type="button" class="btn-register" onclick="registrar()">Registrarse</button>
+        <button type="button" class="btn-login" onclick="login()">Iniciar Sesión</button>
+
+    </form>
+</div>
+
+<script>
+// VALIDACIÓN SIMPLE (evita campos vacíos)
+function validar() {
+    let u = document.getElementById("usuario").value;
+    let c = document.getElementById("correo").value;
+    let p = document.getElementById("password").value;
+
+    if (u === "" || c === "" || p === "") {
+        alert("❌ Debes llenar todos los campos");
+        return false;
+    }
+    return true;
+}
+
+// REGISTRO
+function registrar() {
+    if (validar()) {
+        // aquí luego conectas con PHP (registrar.php)
+        alert("✔ Usuario registrado (demo)");
+        window.location.href = "index.html";
+    }
+}
+
+// LOGIN
+function login() {
+    if (validar()) {
+        // aquí luego conectas con PHP (login.php)
+        alert("✔ Bienvenido");
+        window.location.href = "index.html";
+    }
+}
+</script>
 
 </body>
 </html>
