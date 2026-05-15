@@ -6,6 +6,11 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: login.html");
     exit();
 }
+
+// EVITAR CACHE (no volver atrás y entrar sin login)
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 ?>
 
 <!DOCTYPE html>
@@ -24,16 +29,35 @@ body{
 }
 
 .box{
-    margin-top:100px;
+    margin-top:80px;
     padding:30px;
+}
+
+.card{
+    background:#111a2e;
+    padding:20px;
+    margin:20px auto;
+    width:60%;
+    border-radius:15px;
+    box-shadow:0 0 10px black;
 }
 
 button{
     padding:10px 20px;
     border:none;
-    background:red;
     color:white;
     cursor:pointer;
+    margin:5px;
+    border-radius:8px;
+}
+
+.logout{
+    background:red;
+}
+
+.play{
+    background:#00c6ff;
+    color:black;
 }
 </style>
 </head>
@@ -47,13 +71,19 @@ button{
 
     <hr>
 
-    <h2>Panel del Juego</h2>
-    <p>Aquí puedes conectar Unity, puntajes o ranking</p>
+    <!-- PANEL DEL JUEGO -->
+    <div class="card">
+        <h2>Panel del Juego</h2>
+        <p>Aquí puedes conectar Unity, puntajes o ranking</p>
+    </div>
 
-    <br>
-
+    <!-- BOTONES -->
     <a href="logout.php">
-        <button>Cerrar sesión</button>
+        <button class="logout">Cerrar sesión</button>
+    </a>
+
+    <a href="index.html">
+        <button class="play">Ir al juego</button>
     </a>
 
 </div>
