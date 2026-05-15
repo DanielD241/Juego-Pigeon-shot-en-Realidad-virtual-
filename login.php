@@ -1,17 +1,36 @@
 <?php
 
+include "db.php";
+
 $correo = $_POST['correo'];
 $contraseña = $_POST['contraseña'];
 
-// usuario fijo (hardcodeado)
-$correo_valido = "test@gmail.com";
-$contraseña_valida = "1234";
-
-if ($correo == $correo_valido && $contraseña == $contraseña_valida) {
-    header("Location: home.html");
-    exit();
-} else {
-    echo "Correo o contraseña incorrectos";
+// VALIDAR CAMPOS VACÍOS
+if (empty($correo) || empty($contraseña)) {
+    die("❌ Debes llenar todos los campos");
 }
+
+// BUSCAR USUARIO EN LA BASE DE DATOS
+$sql = "SELECT * FROM usuarios WHERE correo = '$correo'";
+$result = $conn->query($sql);
+
+// ❌ SI NO EXISTE EL USUARIO
+if ($result->num_rows == 0) {
+    die("❌ Usuario no registrado");
+}
+
+$user = $result->fetch_assoc();
+
+// ❌ VALIDAR CONTRASEÑA
+if (!password_verify($contraseña, $user['password'])) {
+    die("❌ Contraseña incorrecta");
+}
+
+// ✔ LOGIN CORRECTO
+session_start();
+$_SESSION['usuario'] = $user['usuario'];
+
+header("Location: home.html");
+exit();
 
 ?>
