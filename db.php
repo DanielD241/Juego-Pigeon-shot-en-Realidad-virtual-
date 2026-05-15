@@ -18,16 +18,16 @@ $conn->set_charset("utf8");
 
 
 /* =========================
-   🔐 FUNCIONES ÚTILES
+   🔐 FUNCIONES SEGURAS
    ========================= */
 
-// LIMPIAR DATOS (evitar inyección SQL)
+// LIMPIAR DATOS
 function limpiar($data) {
     global $conn;
     return mysqli_real_escape_string($conn, trim($data));
 }
 
-// VERIFICAR SI USUARIO EXISTE
+// VERIFICAR USUARIO EXISTE
 function usuarioExiste($correo) {
     global $conn;
 
@@ -63,16 +63,46 @@ function validarLogin($correo, $password) {
     $result = $conn->query($sql);
 
     if ($result->num_rows == 0) {
-        return false; // no existe
+        return false;
     }
 
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
-        return $user; // login correcto
+        return $user;
     }
 
     return false;
+}
+
+/* =========================
+   🏆 NUEVO: RANKING (UNITY READY)
+   ========================= */
+
+// GUARDAR PUNTAJE DEL JUEGO
+function guardarPuntaje($usuario_id, $puntos) {
+    global $conn;
+
+    $usuario_id = intval($usuario_id);
+    $puntos = intval($puntos);
+
+    $sql = "INSERT INTO ranking (usuario_id, puntos)
+            VALUES ($usuario_id, $puntos)";
+
+    return $conn->query($sql);
+}
+
+// OBTENER TOP JUGADORES
+function obtenerRanking() {
+    global $conn;
+
+    $sql = "SELECT u.usuario, r.puntos
+            FROM ranking r
+            INNER JOIN usuarios u ON r.usuario_id = u.id
+            ORDER BY r.puntos DESC
+            LIMIT 10";
+
+    return $conn->query($sql);
 }
 
 ?>
