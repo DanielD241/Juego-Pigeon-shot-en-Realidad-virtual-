@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include "db.php";
 
 $correo = $_POST['correo'];
@@ -9,6 +10,9 @@ $contraseña = $_POST['contraseña'];
 if (empty($correo) || empty($contraseña)) {
     die("❌ Debes llenar todos los campos");
 }
+
+// PROTEGER DATOS (SEGURIDAD EXTRA)
+$correo = $conn->real_escape_string($correo);
 
 // BUSCAR USUARIO EN LA BASE DE DATOS
 $sql = "SELECT * FROM usuarios WHERE correo = '$correo'";
@@ -26,11 +30,16 @@ if (!password_verify($contraseña, $user['password'])) {
     die("❌ Contraseña incorrecta");
 }
 
-// ✔ LOGIN CORRECTO
-session_start();
+// ✔ LOGIN CORRECTO (SESIONES SEGURAS)
+$_SESSION['id'] = $user['id'];
 $_SESSION['usuario'] = $user['usuario'];
+$_SESSION['correo'] = $user['correo'];
 
-header("Location: home.html");
+// EVITAR CACHE / ACCESO RÁPIDO SIN LOGIN
+session_regenerate_id(true);
+
+// REDIRECCIÓN SEGURA
+header("Location: home.php");
 exit();
 
 ?>
