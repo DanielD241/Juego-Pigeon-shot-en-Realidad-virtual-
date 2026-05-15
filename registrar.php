@@ -3,80 +3,74 @@
 include "db.php";
 
 /* =========================
-   DATOS
+   OBTENER DATOS DEL FORMULARIO
 ========================= */
-$usuario = $_POST['usuario'];
-$correo = $_POST['correo'];
-$password = $_POST['password'];
+$usuario = trim($_POST['usuario'] ?? '');
+$correo   = trim($_POST['correo'] ?? '');
+$password = $_POST['password'] ?? '';
 
 /* =========================
    VALIDACIONES
 ========================= */
 
-// campos vacíos
+// Campos vacíos
 if (empty($usuario) || empty($correo) || empty($password)) {
-    die("❌ Debes llenar todos los campos");
+    die("❌ Debes llenar todos los campos.");
 }
 
-// usuario solo letras (evita aaaaa, 123, etc.)
-if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,20}$/", $usuario)) {
-    die("❌ Usuario inválido (solo letras, 3-20 caracteres)");
+// Usuario: solo letras y espacios (3 a 20 caracteres)
+if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,20}$/u", $usuario)) {
+    die("❌ Usuario inválido (solo letras, 3-20 caracteres).");
 }
 
-// correo válido real
+// Correo válido
 if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-    die("❌ Correo inválido");
+    die("❌ Correo inválido.");
 }
 
-// contraseña mínima
+// Contraseña mínima de 6 caracteres
 if (strlen($password) < 6) {
-    die("❌ Contraseña muy corta (mínimo 6 caracteres)");
+    die("❌ La contraseña debe tener al menos 6 caracteres.");
 }
 
 /* =========================
-   VERIFICAR SI YA EXISTE
+   ESCAPAR DATOS
+========================= */
+$usuario = $conn->real_escape_string($usuario);
+$correo  = $conn->real_escape_string($correo);
+
+/* =========================
+   VERIFICAR SI EL CORREO YA EXISTE
 ========================= */
 $sql = "SELECT id FROM usuarios WHERE correo = '$correo'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    die("❌ Este correo ya está registrado");
+    die("❌ Este correo ya está registrado.");
 }
 
 /* =========================
-   (OPCIONAL) RECAPTCHA
+   ENCRIPTAR CONTRASEÑA
 ========================= */
-/*
-$secret = "TU_SECRET_KEY";
-$response = $_POST['g-recaptcha-response'];
-
-$verify = file_get_contents(
-    "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response"
-);
-
-$captcha_success = json_decode($verify);
-
-if (!$captcha_success->success) {
-    die("❌ Verifica que no eres un robot");
-}
-*/
+$hash = password_hash($password, PASSWORD_DEFAULT);
 
 /* =========================
    GUARDAR USUARIO
 ========================= */
-$hash = password_hash($password, PASSWORD_DEFAULT);
-
 $sql = "INSERT INTO usuarios (usuario, correo, password)
         VALUES ('$usuario', '$correo', '$hash')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "✔ Usuario registrado correctamente";
+    // Redirigir al login después del registro
     header("Location: login.html");
     exit();
 } else {
-    echo "❌ Error: " . $conn->error;
+    die("❌ Error al registrar el usuario: " . $conn->error);
 }
 
+/* =========================
+   CERRAR CONEXIÓN
+========================= */
 $conn->close();
 
 ?>
