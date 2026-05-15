@@ -59,6 +59,10 @@ button{
     background:#00c6ff;
     color:black;
 }
+
+.refresh{
+    background:green;
+}
 </style>
 </head>
 
@@ -75,6 +79,10 @@ button{
     <div class="card">
         <h2>Panel del Juego</h2>
         <p>Aquí puedes conectar Unity, puntajes o ranking</p>
+
+        <!-- 🔥 ESPACIO PARA FUTURO RANKING -->
+        <h3>🏆 Puntuación actual</h3>
+        <p>Aún no disponible (conectar con Unity)</p>
     </div>
 
     <!-- BOTONES -->
@@ -85,6 +93,11 @@ button{
     <a href="index.html">
         <button class="play">Ir al juego</button>
     </a>
+
+    <!-- 🔄 REFRESCAR SESIÓN -->
+    <button class="refresh" onclick="location.reload()">
+        Recargar panel
+    </button>
 
 </div>
 
