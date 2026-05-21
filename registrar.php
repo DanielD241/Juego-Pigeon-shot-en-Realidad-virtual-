@@ -1,74 +1,11 @@
-Tu registrar.php ya está bastante bien. ✅
-Solo voy a corregirlo para:
-
-✅ evitar error 405,
-
-✅ aceptar solo Gmail,
-
-✅ validar contraseña segura,
-
-✅ evitar warnings,
-
-✅ mejorar seguridad,
-
-✅ evitar errores si alguien abre el PHP directamente.
 <?php
 
-// BLOQUEAR ACCESO DIRECTO
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: registro.html");
-    exit();
-}
-
-include "db.php";
-
-// OBTENER DATOS
-$usuario = trim($_POST['usuario'] ?? '');
-$correo = trim($_POST['correo'] ?? '');
-$password = $_POST['password'] ?? '';
-
-// VALIDAR CAMPOS
-if(empty($usuario) || empty($correo) || empty($password)){
-    die("❌ Completa todos los campos");
-}
-
-// VALIDAR GMAIL
-if(!preg_match("/^[a-zA-Z0-9._%+-]+@gmail\.com$/", $correo)){
-    die("❌ Solo se permiten correos Gmail");
-}
-
-// VALIDAR CONTRASEÑA SEGURA
-if(
-    strlen($password) < 8 ||
-    !preg_match("/[A-Z]/", $password) ||
-    !preg_match("/[0-9]/", $password)
-){
-    die("❌ La contraseña debe tener 8 caracteres, una mayúscula y un número");
-}
-
-// VERIFICAR SI EXISTE
-if(usuarioExiste($correo)){
-    die("❌ El correo ya existe");
-}
-
-// REGISTRAR
-if(registrarUsuario($usuario,$correo,$password)){
-
-    header("Location: login.html?registro=ok");
-    exit();
-
-}else{
-    die("❌ Error al registrar");
-}
-
-?>
-
-<?php
+session_start();
 
 include "db.php";
 
 /* =========================
-   VALIDAR MÉTODO POST
+   BLOQUEAR ACCESO DIRECTO
    ========================= */
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -86,7 +23,7 @@ $correo  = trim($_POST['correo'] ?? '');
 $password = $_POST['password'] ?? '';
 
 /* =========================
-   VALIDAR CAMPOS VACÍOS
+   VALIDAR CAMPOS
    ========================= */
 
 if (
@@ -95,7 +32,12 @@ if (
     empty($password)
 ) {
 
-    die("❌ Debes llenar todos los campos.");
+    echo "<script>
+    alert('Completa todos los campos');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
 
 /* =========================
@@ -109,7 +51,12 @@ if (
     )
 ) {
 
-    die("❌ Usuario inválido.");
+    echo "<script>
+    alert('Usuario inválido');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
 
 /* =========================
@@ -123,75 +70,67 @@ if (
     )
 ) {
 
-    die("❌ Debes usar un correo Gmail válido.");
+    echo "<script>
+    alert('Solo se permiten correos Gmail');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
 
 /* =========================
    VALIDAR CONTRASEÑA
    ========================= */
 
-if (strlen($password) < 8) {
+if (
+    strlen($password) < 8 ||
+    !preg_match("/[A-Z]/", $password) ||
+    !preg_match("/[0-9]/", $password)
+) {
 
-    die("❌ La contraseña debe tener mínimo 8 caracteres.");
+    echo "<script>
+    alert('La contraseña debe tener mínimo 8 caracteres, una mayúscula y un número');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
-
-/* =========================
-   ESCAPAR DATOS
-   ========================= */
-
-$usuario = $conn->real_escape_string($usuario);
-$correo  = $conn->real_escape_string($correo);
 
 /* =========================
    VERIFICAR SI YA EXISTE
    ========================= */
 
-$sql = "SELECT id
-        FROM usuarios
-        WHERE correo = '$correo'";
+if (usuarioExiste($correo)) {
 
-$result = $conn->query($sql);
+    echo "<script>
+    alert('Este Gmail ya está registrado');
+    window.location='login.html';
+    </script>";
 
-if ($result && $result->num_rows > 0) {
-
-    die("❌ Este correo ya está registrado.");
+    exit();
 }
 
 /* =========================
-   ENCRIPTAR CONTRASEÑA
+   REGISTRAR USUARIO
    ========================= */
 
-$hash = password_hash($password, PASSWORD_DEFAULT);
+if (registrarUsuario($usuario, $correo, $password)) {
 
-/* =========================
-   INSERTAR USUARIO
-   ========================= */
+    echo "<script>
+    alert('Registro exitoso');
+    window.location='login.html';
+    </script>";
 
-$sql = "INSERT INTO usuarios
-        (usuario, correo, password)
-
-        VALUES
-
-        ('$usuario', '$correo', '$hash')";
-
-/* =========================
-   EJECUTAR INSERT
-   ========================= */
-
-if ($conn->query($sql) === TRUE) {
-
-    header("Location: login.html");
     exit();
 
 } else {
 
-    die("❌ Error al registrar: " . $conn->error);
+    echo "<script>
+    alert('Error al registrar');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
-
-/* =========================
-   CERRAR CONEXIÓN
-   ========================= */
-
-$conn->close();
 
 ?>
