@@ -2,44 +2,10 @@
 
 session_start();
 
-// BLOQUEAR ACCESO DIRECTO
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: login.html");
-    exit();
-}
-
-include "db.php";
-
-$correo = trim($_POST['correo'] ?? '');
-$password = $_POST['password'] ?? '';
-
-if(empty($correo) || empty($password)){
-    die("❌ Completa todos los campos");
-}
-
-// VALIDAR LOGIN
-$user = validarLogin($correo, $password);
-
-if(!$user){
-    die("❌ Correo o contraseña incorrectos");
-}
-
-// CREAR SESIÓN
-$_SESSION['id'] = $user['id'];
-$_SESSION['usuario'] = $user['usuario'];
-
-// REDIRECCIÓN
-header("Location: panel.php");
-exit();
-
-?>
-
-session_start();
-
 include "db.php";
 
 /* =========================
-   VALIDAR MÉTODO POST
+   BLOQUEAR ACCESO DIRECTO
    ========================= */
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -52,78 +18,41 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
    OBTENER DATOS
    ========================= */
 
-$correo  = trim($_POST['correo'] ?? '');
+$correo = trim($_POST['correo'] ?? '');
 $password = $_POST['password'] ?? '';
 
 /* =========================
-   VALIDAR CAMPOS VACÍOS
+   VALIDAR CAMPOS
    ========================= */
 
-if (
-    empty($correo) ||
-    empty($password)
-) {
+if (empty($correo) || empty($password)) {
 
-    die("❌ Debes ingresar el correo y la contraseña.");
+    echo "<script>
+    alert('Completa todos los campos');
+    window.location='login.html';
+    </script>";
+
+    exit();
 }
 
 /* =========================
-   VALIDAR GMAIL
+   VALIDAR LOGIN
    ========================= */
 
-if (
-    !preg_match(
-        "/^[a-zA-Z0-9._%+-]+@gmail\.com$/",
-        $correo
-    )
-) {
-
-    die("❌ Correo Gmail inválido.");
-}
+$user = validarLogin($correo, $password);
 
 /* =========================
-   LIMPIAR CORREO
+   LOGIN INCORRECTO
    ========================= */
 
-$correo = $conn->real_escape_string($correo);
+if (!$user) {
 
-/* =========================
-   BUSCAR USUARIO
-   ========================= */
+    echo "<script>
+    alert('Correo o contraseña incorrectos');
+    window.location='login.html';
+    </script>";
 
-$sql = "SELECT *
-        FROM usuarios
-        WHERE correo = '$correo'";
-
-$result = $conn->query($sql);
-
-/* =========================
-   USUARIO NO EXISTE
-   ========================= */
-
-if (!$result || $result->num_rows === 0) {
-
-    die("❌ Usuario no registrado.");
-}
-
-/* =========================
-   OBTENER USUARIO
-   ========================= */
-
-$user = $result->fetch_assoc();
-
-/* =========================
-   VALIDAR CONTRASEÑA
-   ========================= */
-
-if (
-    !password_verify(
-        $password,
-        $user['password']
-    )
-) {
-
-    die("❌ Contraseña incorrecta.");
+    exit();
 }
 
 /* =========================
@@ -131,9 +60,7 @@ if (
    ========================= */
 
 $_SESSION['id'] = $user['id'];
-
 $_SESSION['usuario'] = $user['usuario'];
-
 $_SESSION['correo'] = $user['correo'];
 
 /* =========================
@@ -146,8 +73,7 @@ session_regenerate_id(true);
    REDIRECCIÓN
    ========================= */
 
-header("Location: home.php");
-
+header("Location: Home.html");
 exit();
 
 ?>
