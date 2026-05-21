@@ -1,139 +1,180 @@
-import java.sql.*;
-import java.util.Scanner;
+/* =========================
+   🎮 PIGEON SHOT STYLE
+   ========================= */
 
-public class PigeonGame {
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    static Connection conn;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    public static void main(String[] args) {
+body{
+    font-family:'Orbitron', sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("imagenes/Portada-Pigeon-shot.jpeg");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
 
-        try {
-            connectDB();
-            createTables();
+/* =========================
+   📦 CONTENEDOR LOGIN
+   ========================= */
 
-            Scanner sc = new Scanner(System.in);
+.login-container{
+    width:420px;
+    max-width:90%;
+    padding:40px;
+    border-radius:25px;
 
-            while (true) {
+    background:rgba(255,255,255,0.08);
 
-                System.out.println("\n🎮 PIGEON SHOT VR BACKEND");
-                System.out.println("1. Registrar");
-                System.out.println("2. Login");
-                System.out.println("3. Agregar puntos");
-                System.out.println("4. Ver ranking");
-                System.out.println("5. Salir");
-                System.out.print("Opción: ");
+    backdrop-filter:blur(12px);
 
-                int op = sc.nextInt();
-                sc.nextLine();
+    box-shadow:
+    0 0 20px rgba(0,198,255,0.3),
+    0 0 60px rgba(0,198,255,0.1);
 
-                switch (op) {
+    border:1px solid rgba(255,255,255,0.1);
 
-                    case 1 -> {
-                        System.out.print("Usuario: ");
-                        String user = sc.nextLine();
+    text-align:center;
 
-                        System.out.print("Password: ");
-                        String pass = sc.nextLine();
+    animation:fadeIn 1s ease;
+}
 
-                        PreparedStatement ps = conn.prepareStatement(
-                            "INSERT INTO users(username,password) VALUES(?,?)"
-                        );
-                        ps.setString(1, user);
-                        ps.setString(2, pass);
-                        ps.executeUpdate();
+/* =========================
+   🕹️ TÍTULO
+   ========================= */
 
-                        System.out.println("✔ Usuario registrado");
-                    }
+.login-container h1{
+    color:#00c6ff;
+    margin-bottom:10px;
+    font-size:2rem;
+    text-shadow:0 0 15px #00c6ff;
+}
 
-                    case 2 -> {
-                        System.out.print("Usuario: ");
-                        String user = sc.nextLine();
+.login-container p{
+    color:#ccc;
+    margin-bottom:25px;
+    font-size:14px;
+}
 
-                        System.out.print("Password: ");
-                        String pass = sc.nextLine();
+/* =========================
+   📥 INPUTS
+   ========================= */
 
-                        PreparedStatement ps = conn.prepareStatement(
-                            "SELECT * FROM users WHERE username=? AND password=?"
-                        );
-                        ps.setString(1, user);
-                        ps.setString(2, pass);
+.login-container input{
+    width:100%;
+    padding:15px;
+    margin:12px 0;
 
-                        ResultSet rs = ps.executeQuery();
+    border:none;
+    outline:none;
 
-                        if (rs.next()) {
-                            System.out.println("✔ LOGIN EXITOSO 🎮");
-                        } else {
-                            System.out.println("❌ ERROR LOGIN");
-                        }
-                    }
+    border-radius:12px;
 
-                    case 3 -> {
-                        System.out.print("Usuario: ");
-                        String user = sc.nextLine();
+    background:rgba(255,255,255,0.12);
 
-                        System.out.print("Puntos: ");
-                        int points = sc.nextInt();
-                        sc.nextLine();
+    color:white;
 
-                        PreparedStatement ps = conn.prepareStatement(
-                            "INSERT INTO scores(username,points) VALUES(?,?)"
-                        );
-                        ps.setString(1, user);
-                        ps.setInt(2, points);
-                        ps.executeUpdate();
+    font-size:15px;
 
-                        System.out.println("✔ Puntos guardados");
-                    }
+    transition:0.3s;
+}
 
-                    case 4 -> {
-                        System.out.println("🏆 RANKING:");
+.login-container input::placeholder{
+    color:#ddd;
+}
 
-                        Statement st = conn.createStatement();
-                        ResultSet rs = st.executeQuery(
-                            "SELECT username, SUM(points) as total " +
-                            "FROM scores GROUP BY username ORDER BY total DESC"
-                        );
+.login-container input:focus{
+    border:1px solid #00c6ff;
 
-                        while (rs.next()) {
-                            System.out.println(rs.getString("username") +
-                                    " - " + rs.getInt("total"));
-                        }
-                    }
+    box-shadow:
+    0 0 10px #00c6ff;
+}
 
-                    case 5 -> {
-                        System.out.println("Saliendo...");
-                        return;
-                    }
-                }
-            }
+/* =========================
+   🔘 BOTONES
+   ========================= */
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+.btn{
+    width:100%;
+    padding:15px;
+
+    margin-top:15px;
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:16px;
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+/* BOTÓN LOGIN */
+
+.btn-login{
+    background:#00c6ff;
+    color:black;
+}
+
+.btn-login:hover{
+    transform:scale(1.03);
+
+    box-shadow:
+    0 0 15px #00c6ff;
+}
+
+/* BOTÓN REGISTRO */
+
+.btn-register{
+    background:transparent;
+    border:2px solid #00c6ff;
+    color:white;
+}
+
+.btn-register:hover{
+    background:#00c6ff;
+    color:black;
+
+    transform:scale(1.03);
+}
+
+/* =========================
+   🏆 LINKS
+   ========================= */
+
+.login-container a{
+    color:#00c6ff;
+    text-decoration:none;
+}
+
+.login-container a:hover{
+    text-shadow:0 0 10px #00c6ff;
+}
+
+/* =========================
+   ✨ ANIMACIÓN
+   ========================= */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
     }
 
-    // CONEXIÓN MYSQL
-    static void connectDB() throws Exception {
-        conn = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/pigeon_game",
-            "root",
-            "tu_password"
-        );
-    }
-
-    // CREAR TABLAS
-    static void createTables() throws Exception {
-
-        Statement st = conn.createStatement();
-
-        st.execute("CREATE TABLE IF NOT EXISTS users (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "username VARCHAR(50)," +
-                "password VARCHAR(50))");
-
-        st.execute("CREATE TABLE IF NOT EXISTS scores (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "username VARCHAR(50)," +
-                "points INT)");
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
