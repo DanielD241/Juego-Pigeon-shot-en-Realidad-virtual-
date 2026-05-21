@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -21,9 +22,10 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
+    background:url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
 }
 
+/* OSCURECER FONDO */
 body::before{
     content:"";
     position:absolute;
@@ -31,6 +33,7 @@ body::before{
     background:rgba(0,0,0,0.65);
 }
 
+/* CAJA LOGIN */
 .login-box{
     position:relative;
     z-index:1;
@@ -45,6 +48,7 @@ body::before{
     text-align:center;
 }
 
+/* TITULOS */
 .login-box h1{
     color:#00c6ff;
     margin-bottom:10px;
@@ -55,6 +59,7 @@ body::before{
     margin-bottom:25px;
 }
 
+/* INPUTS */
 .login-box input{
     width:100%;
     padding:14px;
@@ -64,12 +69,21 @@ body::before{
     background:rgba(255,255,255,0.15);
     color:white;
     font-family:'Orbitron', sans-serif;
+    font-size:15px;
 }
 
+/* PLACEHOLDER */
 .login-box input::placeholder{
     color:#ddd;
 }
 
+/* FOCUS */
+.login-box input:focus{
+    outline:none;
+    border:2px solid #00c6ff;
+}
+
+/* BOTONES */
 .login-box button{
     width:100%;
     padding:14px;
@@ -83,75 +97,103 @@ body::before{
     font-family:'Orbitron', sans-serif;
 }
 
+/* BOTON REGISTRO */
 .btn-register{
     background:#00c6ff;
     color:black;
 }
 
+/* BOTON LOGIN */
 .btn-login{
     background:transparent;
     border:2px solid #00c6ff;
     color:white;
 }
 
+/* EFECTO */
 .login-box button:hover{
     transform:scale(1.03);
 }
+
+/* TEXTO */
+.info{
+    margin-top:15px;
+    color:#ccc;
+    font-size:13px;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="login-box">
+
     <h1>PIGEON SHOT VR</h1>
+
     <p>Regístrate o inicia sesión</p>
 
-    <form method="POST" autocomplete="off">
+    <!-- FORMULARIO -->
+    <form method="POST" autocomplete="on">
 
-        <!-- Usuario -->
+        <!-- USUARIO -->
         <input
             type="text"
             name="usuario"
             placeholder="Usuario"
+            minlength="3"
+            maxlength="20"
+            autocomplete="username"
             required
         >
 
-        <!-- Correo -->
+        <!-- GMAIL -->
         <input
             type="email"
             name="correo"
-            placeholder="Correo"
+            placeholder="Correo Gmail"
+            pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+            title="Ingresa un correo Gmail válido"
+            autocomplete="email"
             required
         >
 
-        <!-- Contraseña -->
+        <!-- CONTRASEÑA -->
         <input
             type="password"
             name="password"
-            placeholder="Contraseña"
+            placeholder="Contraseña segura"
+            minlength="8"
+            autocomplete="new-password"
             required
-            autocomplete="off"
         >
 
-        <!-- Botón Registrarse -->
+        <!-- BOTON REGISTRAR -->
         <button
             type="submit"
             formaction="registrar.php"
-            class="btn-register"
-        >
+            class="btn-register">
+
             Registrarse
+
         </button>
 
-        <!-- Botón Iniciar Sesión -->
+        <!-- BOTON LOGIN -->
         <button
             type="submit"
             formaction="login.php"
-            class="btn-login"
-        >
+            class="btn-login">
+
             Iniciar Sesión
+
         </button>
 
     </form>
+
+    <div class="info">
+        Usa un correo Gmail y una contraseña segura
+    </div>
+
 </div>
 
 </body>
