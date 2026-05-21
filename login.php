@@ -2,6 +2,40 @@
 
 session_start();
 
+// BLOQUEAR ACCESO DIRECTO
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: login.html");
+    exit();
+}
+
+include "db.php";
+
+$correo = trim($_POST['correo'] ?? '');
+$password = $_POST['password'] ?? '';
+
+if(empty($correo) || empty($password)){
+    die("❌ Completa todos los campos");
+}
+
+// VALIDAR LOGIN
+$user = validarLogin($correo, $password);
+
+if(!$user){
+    die("❌ Correo o contraseña incorrectos");
+}
+
+// CREAR SESIÓN
+$_SESSION['id'] = $user['id'];
+$_SESSION['usuario'] = $user['usuario'];
+
+// REDIRECCIÓN
+header("Location: panel.php");
+exit();
+
+?>
+
+session_start();
+
 include "db.php";
 
 /* =========================
