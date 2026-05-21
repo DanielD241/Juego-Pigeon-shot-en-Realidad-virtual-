@@ -1,20 +1,5 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "pigeon_shot";
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
-
-$conn->set_charset("utf8");
-
-?>
-
 /* =========================
    CONFIGURACIÓN MYSQL
    ========================= */
@@ -44,7 +29,6 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8mb4");
 
-
 /* =========================
    🔐 FUNCIONES SEGURAS
    ========================= */
@@ -56,7 +40,6 @@ function limpiar($data) {
 
     return $conn->real_escape_string(trim($data));
 }
-
 
 /* VERIFICAR SI EL USUARIO EXISTE */
 function usuarioExiste($correo) {
@@ -76,7 +59,6 @@ function usuarioExiste($correo) {
 
     return ($result->num_rows > 0);
 }
-
 
 /* REGISTRAR USUARIO */
 function registrarUsuario($usuario, $correo, $password) {
@@ -98,7 +80,6 @@ function registrarUsuario($usuario, $correo, $password) {
 
     return $conn->query($sql);
 }
-
 
 /* VALIDAR LOGIN */
 function validarLogin($correo, $password) {
@@ -128,11 +109,9 @@ function validarLogin($correo, $password) {
     return false;
 }
 
-
 /* =========================
    🏆 RANKING UNITY READY
    ========================= */
-
 
 /* GUARDAR PUNTAJE */
 function guardarPuntaje($usuario_id, $puntos) {
@@ -151,7 +130,6 @@ function guardarPuntaje($usuario_id, $puntos) {
 
     return $conn->query($sql);
 }
-
 
 /* OBTENER TOP JUGADORES */
 function obtenerRanking() {
