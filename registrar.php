@@ -12,7 +12,56 @@ Solo voy a corregirlo para:
 ✅ mejorar seguridad,
 
 ✅ evitar errores si alguien abre el PHP directamente.
+<?php
 
+// BLOQUEAR ACCESO DIRECTO
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: registro.html");
+    exit();
+}
+
+include "db.php";
+
+// OBTENER DATOS
+$usuario = trim($_POST['usuario'] ?? '');
+$correo = trim($_POST['correo'] ?? '');
+$password = $_POST['password'] ?? '';
+
+// VALIDAR CAMPOS
+if(empty($usuario) || empty($correo) || empty($password)){
+    die("❌ Completa todos los campos");
+}
+
+// VALIDAR GMAIL
+if(!preg_match("/^[a-zA-Z0-9._%+-]+@gmail\.com$/", $correo)){
+    die("❌ Solo se permiten correos Gmail");
+}
+
+// VALIDAR CONTRASEÑA SEGURA
+if(
+    strlen($password) < 8 ||
+    !preg_match("/[A-Z]/", $password) ||
+    !preg_match("/[0-9]/", $password)
+){
+    die("❌ La contraseña debe tener 8 caracteres, una mayúscula y un número");
+}
+
+// VERIFICAR SI EXISTE
+if(usuarioExiste($correo)){
+    die("❌ El correo ya existe");
+}
+
+// REGISTRAR
+if(registrarUsuario($usuario,$correo,$password)){
+
+    header("Location: login.html?registro=ok");
+    exit();
+
+}else{
+    die("❌ Error al registrar");
+}
+
+?>
 
 <?php
 
