@@ -1,57 +1,119 @@
 <?php
+
 session_start();
+
 include "db.php";
 
-/*
-    En login.html el campo de contraseña se llama:
-    name="password"
+/* =========================
+   VALIDAR MÉTODO POST
+   ========================= */
 
-    Por eso aquí debemos leer:
-    $_POST['password']
-*/
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-$correo = $_POST['correo'] ?? '';
+    header("Location: login.html");
+    exit();
+}
+
+/* =========================
+   OBTENER DATOS
+   ========================= */
+
+$correo  = trim($_POST['correo'] ?? '');
 $password = $_POST['password'] ?? '';
 
-// Validar campos vacíos
-if (empty($correo) || empty($password)) {
+/* =========================
+   VALIDAR CAMPOS VACÍOS
+   ========================= */
+
+if (
+    empty($correo) ||
+    empty($password)
+) {
+
     die("❌ Debes ingresar el correo y la contraseña.");
 }
 
-// Limpiar el correo
+/* =========================
+   VALIDAR GMAIL
+   ========================= */
+
+if (
+    !preg_match(
+        "/^[a-zA-Z0-9._%+-]+@gmail\.com$/",
+        $correo
+    )
+) {
+
+    die("❌ Correo Gmail inválido.");
+}
+
+/* =========================
+   LIMPIAR CORREO
+   ========================= */
+
 $correo = $conn->real_escape_string($correo);
 
-// Buscar usuario por correo
-$sql = "SELECT * FROM usuarios WHERE correo = '$correo'";
+/* =========================
+   BUSCAR USUARIO
+   ========================= */
+
+$sql = "SELECT *
+        FROM usuarios
+        WHERE correo = '$correo'";
+
 $result = $conn->query($sql);
 
-// Si el usuario no existe
-if ($result->num_rows === 0) {
+/* =========================
+   USUARIO NO EXISTE
+   ========================= */
+
+if (!$result || $result->num_rows === 0) {
+
     die("❌ Usuario no registrado.");
 }
 
+/* =========================
+   OBTENER USUARIO
+   ========================= */
+
 $user = $result->fetch_assoc();
 
-/*
-    Validar contraseña.
-    La columna en la base de datos debe llamarse "password".
-*/
-if (!password_verify($password, $user['password'])) {
+/* =========================
+   VALIDAR CONTRASEÑA
+   ========================= */
+
+if (
+    !password_verify(
+        $password,
+        $user['password']
+    )
+) {
+
     die("❌ Contraseña incorrecta.");
 }
 
-// Guardar datos en la sesión
+/* =========================
+   CREAR SESIÓN
+   ========================= */
+
 $_SESSION['id'] = $user['id'];
+
 $_SESSION['usuario'] = $user['usuario'];
+
 $_SESSION['correo'] = $user['correo'];
 
-// Regenerar ID de sesión por seguridad
+/* =========================
+   SEGURIDAD EXTRA
+   ========================= */
+
 session_regenerate_id(true);
 
-/*
-    Tu archivo en la carpeta es Home.html
-    (con H mayúscula), así que redirigimos a ese archivo.
-*/
-header("Location: Home.html");
+/* =========================
+   REDIRECCIÓN
+   ========================= */
+
+header("Location: home.php");
+
 exit();
+
 ?>
