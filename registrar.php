@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
    ========================= */
 
 $usuario = trim($_POST['usuario'] ?? '');
-$correo  = trim($_POST['correo'] ?? '');
+$correo = trim($_POST['correo'] ?? '');
 $password = $_POST['password'] ?? '';
 
 /* =========================

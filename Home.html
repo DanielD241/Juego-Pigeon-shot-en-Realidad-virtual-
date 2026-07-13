@@ -3,180 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pigeon Shot VR</title>
-
+<title>Pigeon Shot VR — Inicio</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Orbitron', sans-serif;
-    background:#050505;
-    color:white;
-}
-
-/* HEADER */
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:rgba(0,0,0,0.7);
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.logo{
-    color:#00c6ff;
-    font-size:1.5rem;
-    font-weight:bold;
-}
-
-.header-buttons{
-    display:flex;
-    gap:15px;
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:60px 20px;
-}
-
-.hero h1{
-    font-size:3rem;
-    color:#00c6ff;
-}
-
-.hero p{
-    max-width:700px;
-    margin:20px auto;
-    color:#ccc;
-    line-height:1.8;
-}
-
-.hero img{
-    width:100%;
-    max-width:900px;
-    border-radius:20px;
-    margin-top:20px;
-    box-shadow:0 0 25px rgba(0,198,255,0.2);
-}
-
-/* BOTONES */
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:15px 30px;
-    background:#00c6ff;
-    color:black;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-.btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(0,198,255,0.5);
-}
-
-.btn-logout{
-    background:transparent;
-    border:2px solid #00c6ff;
-    color:white;
-    margin-top:0;
-}
-
-/* SECCIONES */
-.section{
-    padding:70px 20px;
-}
-
-.section h2{
-    text-align:center;
-    color:#00c6ff;
-    margin-bottom:30px;
-}
-
-.section p{
-    max-width:900px;
-    margin:auto;
-    text-align:center;
-    color:#ccc;
-    line-height:1.8;
-}
-
-/* GALERÍA */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-    gap:20px;
-    padding:0 20px;
-}
-
-.gallery img{
-    width:100%;
-    border-radius:15px;
-    box-shadow:0 0 15px rgba(255,255,255,0.1);
-}
-
-/* FORMULARIO */
-.form-section{
-    padding:70px 20px;
-    text-align:center;
-}
-
-.form-box{
-    max-width:400px;
-    margin:auto;
-    background:rgba(255,255,255,0.08);
-    padding:30px;
-    border-radius:15px;
-}
-
-.form-box input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border:none;
-    border-radius:8px;
-}
-
-.form-box button{
-    width:100%;
-    padding:12px;
-    background:#00c6ff;
-    border:none;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:40px;
-    color:#777;
-    border-top:1px solid rgba(255,255,255,0.1);
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <div class="logo">Pigeon Shot VR</div>
+<header class="site-header">
+    <a href="index.html" class="logo">🎮 Pigeon Shot VR</a>
+
+    <nav class="site-nav">
+        <a href="index.html">Inicio</a>
+        <a href="login.html">Login / Registro</a>
+    </nav>
 
     <div class="header-buttons">
-        <a href="PigeonShot.apk" download class="btn">Descargar APK</a>
-        <a href="logout.php" class="btn btn-logout">Cerrar sesión</a>
+        <a href="Pigeonshot.apk" download class="btn btn-primary">⬇ Descargar APK</a>
     </div>
 </header>
 
@@ -188,38 +31,20 @@ footer{
         de las palomas invasoras. Vive la experiencia de disparo VR.
     </p>
 
-    <img src="imagenes/Portada-Pigeon-shot.jpeg" alt="Portada">
+    <img src="imagenes/Portada-pigeon-shot.jpeg" alt="Portada de Pigeon Shot VR">
 
-    <br>
-
-    <!-- DESCARGA APK -->
-    <a href="PigeonShot.apk" download class="btn">
-        Descargar APK
-    </a>
+    <div class="hero-actions">
+        <a href="Pigeonshot.apk" download class="btn btn-primary">⬇ Descargar APK</a>
+        <a href="login.html" class="btn btn-outline">Crear cuenta y jugar</a>
+    </div>
 </section>
 
 <!-- GALERÍA -->
 <section class="section">
     <h2>GALERÍA DEL JUEGO</h2>
-
     <div class="gallery">
-        <img src="imagenes/cazador-trigo 1.jpeg" alt="Imagen 1 del juego">
-        <img src="imagenes/cazador-trigo 2.jpeg" alt="Imagen 2 del juego">
-    </div>
-</section>
-
-<!-- FORMULARIO (SE CONSERVA TAL COMO PEDISTE) -->
-<section class="form-section">
-    <h2 style="color:#00c6ff;">Regístrate para jugar</h2>
-
-    <div class="form-box">
-        <input type="text" placeholder="Usuario">
-        <input type="email" placeholder="Correo">
-        <input type="password" placeholder="Contraseña">
-
-        <button onclick="alert('Registro simulado')">
-            Crear cuenta
-        </button>
+        <img src="imagenes/cazador-trigo 1.jpeg" alt="Captura 1 del juego">
+        <img src="imagenes/cazador-trigo 2.jpeg" alt="Captura 2 del juego">
     </div>
 </section>
 
@@ -237,17 +62,22 @@ footer{
 <!-- CARACTERÍSTICAS -->
 <section class="section">
     <h2>CARACTERÍSTICAS</h2>
-    <p>
-        ✔ Realidad Virtual (VR)<br>
-        ✔ Desarrollado en Unity<br>
-        ✔ Sistema de login y registro<br>
-        ✔ Descarga directa del APK<br>
-        ✔ Página web oficial del proyecto
-    </p>
+    <ul class="features">
+        <li>Realidad Virtual (VR)</li>
+        <li>Desarrollado en Unity</li>
+        <li>Sistema de login y registro</li>
+        <li>Descarga directa del APK</li>
+        <li>Página web oficial del proyecto</li>
+    </ul>
 </section>
 
-<footer>
-    © 2026 Pigeon Shot VR - Todos los derechos reservados
+<!-- LLAMADO A LA ACCIÓN -->
+<section class="section" style="text-align:center; padding-top:20px;">
+    <a href="login.html" class="btn btn-primary">Regístrate gratis y juega</a>
+</section>
+
+<footer class="site-footer">
+    © 2026 Pigeon Shot VR — Todos los derechos reservados
 </footer>
 
 </body>

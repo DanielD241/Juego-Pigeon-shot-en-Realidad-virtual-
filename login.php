@@ -1,31 +1,23 @@
+
+
 <?php
 
 session_start();
 
 include "db.php";
 
-/* =========================
-   BLOQUEAR ACCESO DIRECTO
-   ========================= */
-
+/* EVITAR ACCESO DIRECTO */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-
     header("Location: login.html");
     exit();
 }
 
-/* =========================
-   OBTENER DATOS
-   ========================= */
-
+/* DATOS */
 $correo = trim($_POST['correo'] ?? '');
 $password = $_POST['password'] ?? '';
 
-/* =========================
-   VALIDAR CAMPOS
-   ========================= */
-
-if (empty($correo) || empty($password)) {
+/* VALIDAR */
+if(empty($correo) || empty($password)){
 
     echo "<script>
     alert('Completa todos los campos');
@@ -35,17 +27,10 @@ if (empty($correo) || empty($password)) {
     exit();
 }
 
-/* =========================
-   VALIDAR LOGIN
-   ========================= */
-
+/* VALIDAR LOGIN */
 $user = validarLogin($correo, $password);
 
-/* =========================
-   LOGIN INCORRECTO
-   ========================= */
-
-if (!$user) {
+if(!$user){
 
     echo "<script>
     alert('Correo o contraseña incorrectos');
@@ -55,25 +40,13 @@ if (!$user) {
     exit();
 }
 
-/* =========================
-   CREAR SESIÓN
-   ========================= */
-
+/* SESIÓN */
 $_SESSION['id'] = $user['id'];
 $_SESSION['usuario'] = $user['usuario'];
 $_SESSION['correo'] = $user['correo'];
 
-/* =========================
-   SEGURIDAD EXTRA
-   ========================= */
-
-session_regenerate_id(true);
-
-/* =========================
-   REDIRECCIÓN
-   ========================= */
-
-header("Location: Home.html");
+/* REDIRECCIÓN */
+header("Location: Home.php");
 exit();
 
 ?>

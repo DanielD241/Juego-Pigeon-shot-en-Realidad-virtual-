@@ -4,124 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pigeon Shot VR - Login</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="style.css">
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+/* Override para fondo de imagen en esta página */
 body{
-    font-family:'Orbitron', sans-serif;
-    height:100vh;
+    min-height:100vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:url("imagenes/Portada-Pigeon-shot.jpeg") center/cover no-repeat;
+    background:
+        linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.68)),
+        url("imagenes/Portada-pigeon-shot.jpeg") center/cover no-repeat fixed;
 }
 
-/* OSCURECER FONDO */
-body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,0.65);
-}
-
-/* CAJA LOGIN */
-.login-box{
-    position:relative;
-    z-index:1;
-    width:420px;
-    max-width:90%;
-    padding:40px;
-    border-radius:25px;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(15px);
-    box-shadow:0 8px 40px rgba(0,0,0,0.4);
-    color:white;
-    text-align:center;
-}
-
-/* TITULOS */
-.login-box h1{
-    color:#00c6ff;
-    margin-bottom:10px;
-}
-
-.login-box p{
-    color:#ddd;
-    margin-bottom:25px;
-}
-
-/* INPUTS */
-.login-box input{
-    width:100%;
-    padding:14px;
-    margin:10px 0;
-    border:none;
+/* Tabs de modo */
+.tabs{
+    display:flex;
+    gap:0;
+    margin-bottom:22px;
     border-radius:10px;
-    background:rgba(255,255,255,0.15);
-    color:white;
-    font-family:'Orbitron', sans-serif;
-    font-size:15px;
+    overflow:hidden;
+    border:2px solid var(--accent);
 }
 
-/* PLACEHOLDER */
-.login-box input::placeholder{
-    color:#ddd;
-}
-
-/* FOCUS */
-.login-box input:focus{
-    outline:none;
-    border:2px solid #00c6ff;
-}
-
-/* BOTONES */
-.login-box button{
-    width:100%;
-    padding:14px;
-    margin-top:12px;
-    border:none;
-    border-radius:10px;
-    font-size:1rem;
+.tab{
+    flex:1;
+    padding:12px;
+    background:transparent;
+    color:var(--text-dim);
+    font-family:var(--font);
+    font-size:0.85rem;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
-    font-family:'Orbitron', sans-serif;
+    border:none;
+    transition:0.2s;
 }
 
-/* BOTON REGISTRO */
-.btn-register{
-    background:#00c6ff;
-    color:black;
+.tab.active{
+    background:var(--accent);
+    color:#000;
 }
 
-/* BOTON LOGIN */
-.btn-login{
-    background:transparent;
-    border:2px solid #00c6ff;
-    color:white;
+/* Campo usuario se oculta en modo login */
+.field-usuario{
+    overflow:hidden;
+    max-height:80px;
+    transition:max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+    opacity:1;
 }
 
-/* EFECTO */
-.login-box button:hover{
-    transform:scale(1.03);
+.field-usuario.hidden{
+    max-height:0;
+    opacity:0;
+    margin:0;
+    pointer-events:none;
 }
-
-/* TEXTO */
-.info{
-    margin-top:15px;
-    color:#ccc;
-    font-size:13px;
-}
-
 </style>
 </head>
 
@@ -130,24 +69,32 @@ body::before{
 <div class="login-box">
 
     <h1>PIGEON SHOT VR</h1>
+    <p id="subtitle">Crea tu cuenta para jugar</p>
 
-    <p>Regístrate o inicia sesión</p>
+    <!-- TABS MODO -->
+    <div class="tabs">
+        <button class="tab active" onclick="setMode('registro')">Registrarse</button>
+        <button class="tab"        onclick="setMode('login')">Iniciar Sesión</button>
+    </div>
 
-    <!-- FORMULARIO -->
-    <form method="POST" autocomplete="on">
+    <!-- FORMULARIO ÚNICO -->
+    <form id="mainForm" method="POST" autocomplete="on">
 
-        <!-- USUARIO -->
-        <input
-            type="text"
-            name="usuario"
-            placeholder="Usuario"
-            minlength="3"
-            maxlength="20"
-            autocomplete="username"
-            required
-        >
+        <!-- USUARIO (solo para registro) -->
+        <div class="field-usuario" id="fieldUsuario">
+            <input
+                type="text"
+                id="inputUsuario"
+                name="usuario"
+                placeholder="Usuario (3–20 caracteres)"
+                minlength="3"
+                maxlength="20"
+                autocomplete="username"
+                required
+            >
+        </div>
 
-        <!-- GMAIL -->
+        <!-- CORREO -->
         <input
             type="email"
             name="correo"
@@ -162,39 +109,74 @@ body::before{
         <input
             type="password"
             name="password"
-            placeholder="Contraseña segura"
+            placeholder="Contraseña"
             minlength="8"
-            autocomplete="new-password"
+            autocomplete="current-password"
             required
         >
 
-        <!-- BOTON REGISTRAR -->
-        <button
-            type="submit"
-            formaction="registrar.php"
-            class="btn-register">
-
+        <!-- BOTÓN DE ACCIÓN -->
+        <button type="submit" id="submitBtn" formaction="registrar.php" class="btn-register">
             Registrarse
-
-        </button>
-
-        <!-- BOTON LOGIN -->
-        <button
-            type="submit"
-            formaction="login.php"
-            class="btn-login">
-
-            Iniciar Sesión
-
         </button>
 
     </form>
 
-    <div class="info">
-        Usa un correo Gmail y una contraseña segura
+    <div class="info" id="infoText">
+        Usa un correo Gmail. Contraseña: mínimo 8 caracteres, una mayúscula y un número.
     </div>
 
 </div>
+
+<script>
+/* =========================
+   TOGGLE REGISTRO / LOGIN
+   ========================= */
+
+function setMode(mode){
+    const tabs     = document.querySelectorAll('.tab');
+    const fieldUs  = document.getElementById('fieldUsuario');
+    const inputUs  = document.getElementById('inputUsuario');
+    const btn      = document.getElementById('submitBtn');
+    const subtitle = document.getElementById('subtitle');
+    const info     = document.getElementById('infoText');
+
+    if(mode === 'login'){
+        // Activar tab Login
+        tabs[0].classList.remove('active');
+        tabs[1].classList.add('active');
+
+        // Ocultar campo usuario y quitar required
+        fieldUs.classList.add('hidden');
+        inputUs.removeAttribute('required');
+
+        // Cambiar botón
+        btn.textContent  = 'Iniciar Sesión';
+        btn.className    = 'btn-login';
+        btn.setAttribute('formaction', 'login.php');
+
+        subtitle.textContent = 'Bienvenido de vuelta';
+        info.textContent     = 'Ingresa tu correo Gmail y contraseña.';
+
+    } else {
+        // Activar tab Registro
+        tabs[0].classList.add('active');
+        tabs[1].classList.remove('active');
+
+        // Mostrar campo usuario y restaurar required
+        fieldUs.classList.remove('hidden');
+        inputUs.setAttribute('required', '');
+
+        // Cambiar botón
+        btn.textContent = 'Registrarse';
+        btn.className   = 'btn-register';
+        btn.setAttribute('formaction', 'registrar.php');
+
+        subtitle.textContent = 'Crea tu cuenta para jugar';
+        info.textContent     = 'Usa Gmail. Contraseña: mínimo 8 caracteres, mayúscula y número.';
+    }
+}
+</script>
 
 </body>
 </html>

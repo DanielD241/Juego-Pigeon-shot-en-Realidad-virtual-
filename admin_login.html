@@ -2,38 +2,52 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Admin Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Pigeon Shot VR</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#050816;
+}
+.error-msg{
+    margin-top:12px;
+    color:#ff6b6b;
+    font-size:0.82rem;
+    display:none;
+}
+</style>
 </head>
-
 <body>
 
-<h2>LOGIN ADMIN</h2>
+<div class="login-box">
+    <h1 style="font-size:1.3rem;">PANEL ADMIN</h1>
+    <p>Acceso restringido</p>
 
-<form action="admin_login.php" method="POST">
+    <form action="admin_login.php" method="POST">
+        <input type="text"     name="usuario"  placeholder="Usuario"    required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit" class="btn-login">Ingresar</button>
+    </form>
 
-<input
-type="text"
-name="usuario"
-placeholder="Usuario"
-required
->
+    <div class="error-msg" id="errMsg"></div>
+</div>
 
-<br><br>
-
-<input
-type="password"
-name="password"
-placeholder="Contraseña"
-required
->
-
-<br><br>
-
-<button type="submit">
-Ingresar
-</button>
-
-</form>
+<script>
+// Mostrar mensaje de error si viene en la URL
+const params = new URLSearchParams(window.location.search);
+const err = params.get('error');
+if(err){
+    const msgs = { campos:'Completa todos los campos.', usuario:'Usuario no encontrado.', pass:'Contraseña incorrecta.' };
+    const el = document.getElementById('errMsg');
+    el.textContent = msgs[err] || 'Error desconocido.';
+    el.style.display = 'block';
+}
+</script>
 
 </body>
 </html>

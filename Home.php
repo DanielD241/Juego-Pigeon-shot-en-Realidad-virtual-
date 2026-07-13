@@ -7,178 +7,85 @@ session_start();
    ========================= */
 
 if (!isset($_SESSION['id'])) {
-
     header("Location: login.html");
     exit();
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pigeon Shot VR</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Orbitron', sans-serif;
-    background:#050816;
-    color:white;
-}
-
-/* HEADER */
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:#111a2e;
-}
-
-/* LOGO */
-
-.logo{
-    color:#00c6ff;
-    font-size:1.5rem;
-}
-
-/* USUARIO */
-
-.user{
-    color:#ccc;
-}
-
-/* HERO */
-
-.hero{
-    text-align:center;
-    padding:80px 20px;
-}
-
-.hero h1{
-    font-size:3rem;
-    color:#00c6ff;
-}
-
-.hero p{
-    max-width:700px;
-    margin:20px auto;
-    color:#ccc;
-}
-
-/* IMAGEN */
-
-.hero img{
-    width:100%;
-    max-width:900px;
-    border-radius:20px;
-    margin-top:20px;
-}
-
-/* BOTONES */
-
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:15px 30px;
-    background:#00c6ff;
-    color:black;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-/* FOOTER */
-
-footer{
-    text-align:center;
-    padding:40px;
-    color:#777;
-}
-
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
+<header class="site-header">
+    <div class="logo">🎮 Pigeon Shot VR</div>
 
-    <div class="logo">
-        Pigeon Shot VR
+    <div class="header-buttons">
+        <a href="Pigeonshot.apk" download class="btn btn-primary">⬇ Descargar APK</a>
+        <div class="user-pill">
+            👤 <?php echo htmlspecialchars($_SESSION['usuario']); ?>
+            | <a href="logout.php">Cerrar sesión</a>
+        </div>
     </div>
-
-    <div class="user">
-
-        👤
-
-        <?php
-            echo htmlspecialchars($_SESSION['usuario']);
-        ?>
-
-        |
-
-        <a
-            href="logout.php"
-            style="color:#00c6ff; text-decoration:none;"
-        >
-            Cerrar sesión
-        </a>
-
-    </div>
-
 </header>
 
-<!-- CONTENIDO -->
-
+<!-- PORTADA -->
 <section class="hero">
-
     <h1>PIGEON SHOT VR</h1>
-
     <p>
-        Bienvenido al juego de realidad virtual donde
-        debes proteger tus cultivos de las palomas.
+        Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong>.
+        Protege tus cultivos de trigo eliminando palomas invasoras en esta
+        experiencia de disparo en realidad virtual.
     </p>
 
-    <img
-        src="imagenes/Portada-Pigeon-shot.jpeg"
-        alt="Pigeon Shot VR"
-    >
+    <img src="imagenes/Portada-pigeon-shot.jpeg" alt="Portada de Pigeon Shot VR">
 
-    <br>
-
-    <!-- DESCARGA APK -->
-
-    <a
-        href="Pigeonshot.apk"
-        download
-        class="btn"
-    >
-        Descargar APK
-    </a>
-
+    <div class="hero-actions">
+        <a href="Pigeonshot.apk" download class="btn btn-primary">⬇ Descargar APK</a>
+    </div>
 </section>
 
-<footer>
+<!-- GALERÍA -->
+<section class="section">
+    <h2>GALERÍA DEL JUEGO</h2>
+    <div class="gallery">
+        <img src="imagenes/cazador-trigo 1.jpeg" alt="Captura de pantalla 1">
+        <img src="imagenes/cazador-trigo 2.jpeg" alt="Captura de pantalla 2">
+    </div>
+</section>
 
-    © 2026 Pigeon Shot VR
+<!-- ACERCA DEL PROYECTO -->
+<section class="section">
+    <h2>ACERCA DEL PROYECTO</h2>
+    <p>
+        Pigeon Shot VR es un videojuego desarrollado en Unity con realidad virtual.
+        El objetivo del jugador es proteger los cultivos de trigo eliminando las
+        palomas invasoras. Este proyecto académico integra programación, diseño 3D,
+        desarrollo web y bases de datos.
+    </p>
+</section>
 
+<!-- CARACTERÍSTICAS -->
+<section class="section">
+    <h2>CARACTERÍSTICAS</h2>
+    <ul class="features">
+        <li>Realidad Virtual (VR)</li>
+        <li>Desarrollado en Unity</li>
+        <li>Sistema de login y registro</li>
+        <li>Descarga directa del APK</li>
+        <li>Página web oficial del proyecto</li>
+    </ul>
+</section>
+
+<footer class="site-footer">
+    © 2026 Pigeon Shot VR — Todos los derechos reservados
 </footer>
 
 </body>

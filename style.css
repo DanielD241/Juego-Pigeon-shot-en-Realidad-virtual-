@@ -1,180 +1,381 @@
-/* =========================
-   🎮 PIGEON SHOT STYLE
-   ========================= */
+/* =========================================================
+   🎮 PIGEON SHOT VR — CSS GLOBAL
+   Importado por todas las páginas del proyecto
+   ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+    --bg:           #050816;
+    --bg-header:    rgba(0,0,0,0.80);
+    --panel:        rgba(255,255,255,0.09);
+    --panel-border: rgba(255,255,255,0.10);
+    --accent:       #00c6ff;
+    --accent-dark:  #0099cc;
+    --ink:          #000c12;
+    --text:         #ffffff;
+    --text-dim:     #cccccc;
+    --text-faint:   #666666;
+    --radius:       12px;
+    --radius-lg:    22px;
+    --font:         'Orbitron', sans-serif;
 }
+
+*, *::before, *::after{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
 
 body{
-    font-family:'Orbitron', sans-serif;
-    min-height:100vh;
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.7;
+}
+
+a{ color:var(--accent); }
+
+/* ──────────────────────────────────────
+   HEADER
+────────────────────────────────────── */
+
+header.site-header{
     display:flex;
-    justify-content:center;
+    flex-wrap:wrap;
+    justify-content:space-between;
     align-items:center;
-    background:
-    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-    url("imagenes/Portada-Pigeon-shot.jpeg");
-    background-size:cover;
-    background-position:center;
-    color:white;
+    gap:14px;
+    padding:18px 8%;
+    background:var(--bg-header);
+    backdrop-filter:blur(10px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.07);
 }
 
-/* =========================
-   📦 CONTENEDOR LOGIN
-   ========================= */
-
-.login-container{
-    width:420px;
-    max-width:90%;
-    padding:40px;
-    border-radius:25px;
-
-    background:rgba(255,255,255,0.08);
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-    0 0 20px rgba(0,198,255,0.3),
-    0 0 60px rgba(0,198,255,0.1);
-
-    border:1px solid rgba(255,255,255,0.1);
-
-    text-align:center;
-
-    animation:fadeIn 1s ease;
-}
-
-/* =========================
-   🕹️ TÍTULO
-   ========================= */
-
-.login-container h1{
-    color:#00c6ff;
-    margin-bottom:10px;
-    font-size:2rem;
-    text-shadow:0 0 15px #00c6ff;
-}
-
-.login-container p{
-    color:#ccc;
-    margin-bottom:25px;
-    font-size:14px;
-}
-
-/* =========================
-   📥 INPUTS
-   ========================= */
-
-.login-container input{
-    width:100%;
-    padding:15px;
-    margin:12px 0;
-
-    border:none;
-    outline:none;
-
-    border-radius:12px;
-
-    background:rgba(255,255,255,0.12);
-
-    color:white;
-
-    font-size:15px;
-
-    transition:0.3s;
-}
-
-.login-container input::placeholder{
-    color:#ddd;
-}
-
-.login-container input:focus{
-    border:1px solid #00c6ff;
-
-    box-shadow:
-    0 0 10px #00c6ff;
-}
-
-/* =========================
-   🔘 BOTONES
-   ========================= */
-
-.btn{
-    width:100%;
-    padding:15px;
-
-    margin-top:15px;
-
-    border:none;
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-size:16px;
+.logo{
+    color:var(--accent);
+    font-size:1.3rem;
     font-weight:bold;
-
-    transition:0.3s;
-}
-
-/* BOTÓN LOGIN */
-
-.btn-login{
-    background:#00c6ff;
-    color:black;
-}
-
-.btn-login:hover{
-    transform:scale(1.03);
-
-    box-shadow:
-    0 0 15px #00c6ff;
-}
-
-/* BOTÓN REGISTRO */
-
-.btn-register{
-    background:transparent;
-    border:2px solid #00c6ff;
-    color:white;
-}
-
-.btn-register:hover{
-    background:#00c6ff;
-    color:black;
-
-    transform:scale(1.03);
-}
-
-/* =========================
-   🏆 LINKS
-   ========================= */
-
-.login-container a{
-    color:#00c6ff;
+    letter-spacing:1px;
     text-decoration:none;
 }
 
-.login-container a:hover{
-    text-shadow:0 0 10px #00c6ff;
+nav.site-nav{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
-/* =========================
-   ✨ ANIMACIÓN
-   ========================= */
+nav.site-nav a{
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:0.9rem;
+    transition:.2s;
+}
+
+nav.site-nav a:hover{
+    color:var(--accent);
+    text-shadow:0 0 8px rgba(0,198,255,.4);
+}
+
+.header-buttons{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.user-pill{
+    color:var(--text-dim);
+    font-size:0.85rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.user-pill a{
+    color:var(--accent);
+    text-decoration:none;
+    transition:.2s;
+}
+
+.user-pill a:hover{ text-shadow:0 0 8px var(--accent); }
+
+/* ──────────────────────────────────────
+   BOTONES
+────────────────────────────────────── */
+
+.btn{
+    display:inline-block;
+    padding:13px 26px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    font-weight:bold;
+    font-family:var(--font);
+    font-size:0.9rem;
+    border:none;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--accent);
+    color:var(--ink);
+}
+
+.btn-primary:hover{
+    background:var(--accent-dark);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,198,255,.4);
+}
+
+.btn-outline{
+    background:transparent;
+    border:2px solid var(--accent);
+    color:var(--text);
+}
+
+.btn-outline:hover{
+    background:var(--accent);
+    color:var(--ink);
+    transform:translateY(-2px);
+}
+
+/* ──────────────────────────────────────
+   HERO
+────────────────────────────────────── */
+
+.hero{
+    text-align:center;
+    padding:70px 20px 50px;
+}
+
+.hero h1{
+    font-size:clamp(2rem,5vw,3.2rem);
+    color:var(--accent);
+    letter-spacing:2px;
+    text-shadow:0 0 22px rgba(0,198,255,.3);
+}
+
+.hero p{
+    max-width:680px;
+    margin:18px auto 0;
+    color:var(--text-dim);
+    font-size:0.95rem;
+}
+
+.hero img{
+    width:100%;
+    max-width:900px;
+    border-radius:18px;
+    margin-top:28px;
+    box-shadow:0 0 30px rgba(0,198,255,.18);
+}
+
+.hero-actions{
+    margin-top:28px;
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+/* ──────────────────────────────────────
+   SECCIONES
+────────────────────────────────────── */
+
+.section{
+    padding:70px 20px;
+}
+
+.section h2{
+    text-align:center;
+    color:var(--accent);
+    margin-bottom:32px;
+    letter-spacing:1px;
+}
+
+.section p{
+    max-width:860px;
+    margin:0 auto;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.95rem;
+}
+
+/* ──────────────────────────────────────
+   GALERÍA
+────────────────────────────────────── */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:22px;
+    max-width:1100px;
+    margin:0 auto;
+}
+
+.gallery img{
+    width:100%;
+    display:block;
+    border-radius:14px;
+    box-shadow:0 0 15px rgba(255,255,255,.08);
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 25px rgba(0,198,255,.22);
+}
+
+/* ──────────────────────────────────────
+   LISTA DE CARACTERÍSTICAS
+────────────────────────────────────── */
+
+.features{
+    max-width:540px;
+    margin:0 auto;
+    list-style:none;
+    color:var(--text-dim);
+    display:grid;
+    gap:14px;
+    font-size:0.95rem;
+}
+
+.features li{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.features li::before{
+    content:"✔";
+    color:var(--accent);
+    flex-shrink:0;
+    font-size:1rem;
+}
+
+/* ──────────────────────────────────────
+   CAJA DE LOGIN / REGISTRO
+────────────────────────────────────── */
+
+.login-box{
+    position:relative;
+    z-index:1;
+    width:420px;
+    max-width:94%;
+    padding:38px 40px;
+    border-radius:var(--radius-lg);
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    border:1px solid var(--panel-border);
+    box-shadow:0 10px 50px rgba(0,0,0,.45), 0 0 40px rgba(0,198,255,.07);
+    color:var(--text);
+    text-align:center;
+    animation:fadeIn .5s ease;
+}
+
+.login-box h1{
+    color:var(--accent);
+    font-size:1.6rem;
+    margin-bottom:6px;
+    text-shadow:0 0 14px rgba(0,198,255,.45);
+}
+
+.login-box p{
+    color:#ddd;
+    margin-bottom:20px;
+    font-size:0.88rem;
+}
+
+.login-box input{
+    width:100%;
+    padding:13px 14px;
+    margin:7px 0;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.12);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:0.9rem;
+}
+
+.login-box input::placeholder{ color:#bbb; }
+
+.login-box input:focus{
+    outline:none;
+    box-shadow:0 0 0 2px var(--accent);
+}
+
+.login-box button{
+    width:100%;
+    padding:13px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    font-family:var(--font);
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-login{
+    background:var(--accent);
+    color:var(--ink);
+}
+
+.btn-login:hover{
+    background:var(--accent-dark);
+    box-shadow:0 0 18px var(--accent);
+}
+
+.btn-register{
+    background:transparent;
+    border:2px solid var(--accent);
+    color:var(--text);
+}
+
+.btn-register:hover{
+    background:var(--accent);
+    color:var(--ink);
+}
+
+.info{
+    margin-top:14px;
+    color:var(--text-faint);
+    font-size:0.78rem;
+    line-height:1.6;
+}
+
+/* ──────────────────────────────────────
+   FOOTER
+────────────────────────────────────── */
+
+footer.site-footer{
+    text-align:center;
+    padding:34px 20px;
+    color:var(--text-faint);
+    border-top:1px solid rgba(255,255,255,.07);
+    font-size:0.82rem;
+}
+
+/* ──────────────────────────────────────
+   ANIMACIÓN
+────────────────────────────────────── */
 
 @keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
+    from{ opacity:0; transform:translateY(14px); }
+    to  { opacity:1; transform:translateY(0); }
+}
 
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+/* ──────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────── */
+
+@media(max-width:640px){
+    header.site-header{ flex-direction:column; text-align:center; padding:16px 6%; }
+    .hero{ padding:50px 16px 36px; }
+    .section{ padding:50px 16px; }
 }
